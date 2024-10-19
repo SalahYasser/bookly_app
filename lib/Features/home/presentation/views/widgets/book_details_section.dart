@@ -14,8 +14,9 @@ class BookDetailsSection extends StatelessWidget {
       children: [
         Padding(
           padding: EdgeInsets.symmetric(horizontal: width * 0.2),
-          child: const CustomBookItem(
-            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5ZJVlov_JoiTi4y4Z5WgAdKlgZu1tNRQ9Iw&s',
+          child: const CustomBookImage(
+            imageUrl:
+                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5ZJVlov_JoiTi4y4Z5WgAdKlgZu1tNRQ9Iw&s',
           ),
         ),
         const SizedBox(height: 43),
@@ -37,7 +38,11 @@ class BookDetailsSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 18),
-        const BookRating(mainAxisAlignment: MainAxisAlignment.center),
+        const BookRating(
+          rating: 5,
+          count: 250,
+          mainAxisAlignment: MainAxisAlignment.center,
+        ),
         const SizedBox(height: 37),
         const BooksAction(),
       ],
