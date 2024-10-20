@@ -40,11 +40,18 @@ class BooksAction extends StatelessWidget {
                 topRight: Radius.circular(16),
                 bottomRight: Radius.circular(16),
               ),
-              text: 'Free preview',
+              text: getText(bookModel),
             ),
           ),
         ],
       ),
     );
+  }
+
+  String getText(BookModel bookModel) {
+    if (bookModel.volumeInfo.previewLink == null){
+      return 'Not Available';
+    }
+    return 'Preview';
   }
 }
