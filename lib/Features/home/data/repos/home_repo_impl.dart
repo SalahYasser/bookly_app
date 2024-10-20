@@ -14,21 +14,29 @@ class HomeRepoImpl extends HomeRepo {
   Future<Either<Failure, List<BookModel>>> fetchNewestBooks() async {
     try {
       var data =
-          await apiService.get(endPoint: 'volumes?Filtering=free-ebooks&q=subject:programming');
+          await apiService.get(endPoint: 'volumes?Filtering=free-ebooks&Sorting=newest&q=computer science');
 
       List<BookModel> books = [];
 
       for (var item in data['items']) {
-        books.add(BookModel.fromJson(item));
+        try {
+          books.add(BookModel.fromJson(item));
+        } on Exception catch (e) {
+          // TODO
+        }
       }
       return Right(books);
     } on Exception catch (e) {
       if (e is DioException) {
-        return Left(ServerFailure.fromDioException(e));
+
+        return Left(ServerFailure(e.toString() ));
+     // return Left(ServerFailure.fromDioException(e));
+
       }
       return Left(ServerFailure(e.toString() ));
     }
   }
+
 
   @override
   Future<Either<Failure, List<BookModel>>> fetchFeaturedBooks() async{
