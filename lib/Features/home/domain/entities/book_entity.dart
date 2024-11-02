@@ -1,5 +1,7 @@
 import 'package:hive_flutter/adapters.dart';
 
+part 'book_entity.g.dart';
+
 @HiveType(typeId: 0)
 class BookEntity {
   @HiveField(0)
