@@ -1,8 +1,11 @@
+import 'package:bookly/Features/home/domain/entities/book_entity.dart';
 import 'package:bookly/Features/home/presentation/views/widgets/custom_book_item.dart';
 import 'package:flutter/material.dart';
 
 class FeaturedBooksListView extends StatelessWidget {
-  const FeaturedBooksListView({super.key});
+  const FeaturedBooksListView({super.key, required this.books});
+
+  final List<BookEntity> books;
 
   @override
   Widget build(BuildContext context) {
@@ -12,10 +15,10 @@ class FeaturedBooksListView extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          return const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8),
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
             child: CustomBookImage(
-              imageUrl: '',
+              imageUrl: books[index].image ?? '',
             ),
           );
         },
