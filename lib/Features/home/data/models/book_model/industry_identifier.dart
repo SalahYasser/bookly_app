@@ -1,6 +1,5 @@
-import 'package:equatable/equatable.dart';
 
-class IndustryIdentifier extends Equatable {
+class IndustryIdentifier {
   final String? type;
   final String? identifier;
 

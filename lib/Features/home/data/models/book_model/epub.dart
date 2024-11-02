@@ -1,6 +1,5 @@
-import 'package:equatable/equatable.dart';
 
-class Epub extends Equatable {
+class Epub {
   final bool? isAvailable;
 
   const Epub({this.isAvailable});

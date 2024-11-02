@@ -1,11 +1,9 @@
-import 'package:equatable/equatable.dart';
-
 import 'image_links.dart';
 import 'industry_identifier.dart';
 import 'panelization_summary.dart';
 import 'reading_modes.dart';
 
-class VolumeInfo extends Equatable {
+class VolumeInfo {
   final String? title;
   final List<String>? authors;
   final String? publisher;
@@ -41,7 +39,7 @@ class VolumeInfo extends Equatable {
     this.allowAnonLogging,
     this.contentVersion,
     this.panelizationSummary,
-    required this.imageLinks,
+    this.imageLinks,
     this.language,
     this.previewLink,
     this.infoLink,
@@ -50,7 +48,11 @@ class VolumeInfo extends Equatable {
 
   factory VolumeInfo.fromJson(Map<String, dynamic> json) => VolumeInfo(
         title: json['title'] as String?,
-        authors: (json['authors'] as List<dynamic>?)?.cast<String>(),
+
+        authors: (json['authors'] as List<dynamic>?)
+            ?.map((authors) => authors.toString())
+            .toList() ?? [],
+
         publisher: json['publisher'] as String?,
         publishedDate: json['publishedDate'] as String?,
         description: json['description'] as String?,
@@ -63,7 +65,11 @@ class VolumeInfo extends Equatable {
                 json['readingModes'] as Map<String, dynamic>),
         pageCount: json['pageCount'] as int?,
         printType: json['printType'] as String?,
-        categories: (json['categories'] as List<dynamic>?)?.cast<String>(),
+
+        categories: (json['categories'] as List<dynamic>?)
+            ?.map((categories) => categories.toString())
+            .toList() ?? [],
+
         maturityRating: json['maturityRating'] as String?,
         allowAnonLogging: json['allowAnonLogging'] as bool?,
         contentVersion: json['contentVersion'] as String?,
@@ -75,7 +81,9 @@ class VolumeInfo extends Equatable {
             ? null
             : ImageLinks.fromJson(json['imageLinks'] as Map<String, dynamic>),
         language: json['language'] as String?,
+
         previewLink: json['previewLink'] as String?,
+
         infoLink: json['infoLink'] as String?,
         canonicalVolumeLink: json['canonicalVolumeLink'] as String?,
       );
