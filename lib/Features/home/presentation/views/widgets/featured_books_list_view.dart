@@ -1,8 +1,10 @@
 import 'package:bookly/Features/home/domain/entities/book_entity.dart';
 import 'package:bookly/Features/home/presentation/manger/featured_books_cubit/featured_books_cubit.dart';
 import 'package:bookly/Features/home/presentation/views/widgets/custom_book_item.dart';
+import 'package:bookly/core/utils/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class FeaturedBooksListView extends StatefulWidget {
   const FeaturedBooksListView({super.key, required this.books});
@@ -26,10 +28,8 @@ class _FeaturedBooksListViewState extends State<FeaturedBooksListView> {
   }
 
   void _scrollListen() async {
-
     var currentPositions = _scrollController.position.pixels;
     var maxScrollLength = _scrollController.position.maxScrollExtent;
-
     if (currentPositions >= 0.7 * maxScrollLength) {
       if (!isLoading) {
         isLoading = true;
@@ -57,8 +57,16 @@ class _FeaturedBooksListViewState extends State<FeaturedBooksListView> {
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: CustomBookImage(
-              imageUrl: widget.books[index].image ?? '',
+            child: GestureDetector(
+              onTap: () {
+                GoRouter.of(context).push(
+                  AppRouter.kBookDetailsView,
+                  extra: widget.books[index],
+                );
+              },
+              child: CustomBookImage(
+                imageUrl: widget.books[index].image ?? '',
+              ),
             ),
           );
         },
