@@ -1,23 +1,25 @@
 import 'package:bloc/bloc.dart';
-import 'package:bookly/Features/home/data/models/book_model/book_model.dart';
 import 'package:bookly/Features/home/domain/entities/book_entity.dart';
-import 'package:bookly/Features/home/domain/repos/home_repo.dart';
+import 'package:bookly/Features/home/domain/use_cases/fetch_featured_books_ues_case.dart';
 import 'package:meta/meta.dart';
 
 part 'featured_books_state.dart';
 
 class FeaturedBooksCubit extends Cubit<FeaturedBooksState> {
-  FeaturedBooksCubit(this.homeRepo) : super(FeaturedBooksInitial());
+  FeaturedBooksCubit(this.featuredBooksUesCase) : super(FeaturedBooksInitial());
 
-  final HomeRepo homeRepo;
+  final FetchFeaturedBooksUesCase featuredBooksUesCase;
 
   Future<void> fetchFeaturedBooks() async {
-    var result = await homeRepo.fetchFeaturedBooks();
+    var result = await featuredBooksUesCase.call();
 
-    result.fold((failure) {
-      emit(FeaturedBooksFailure(failure.errMessage));
-    }, (books) {
-      emit(FeaturedBooksSuccess(books));
-    });
+    result.fold(
+      (failure) {
+        emit(FeaturedBooksFailure(failure.errMessage));
+      },
+      (books) {
+        emit(FeaturedBooksSuccess(books));
+      },
+    );
   }
 }
