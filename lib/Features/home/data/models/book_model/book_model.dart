@@ -1,9 +1,11 @@
+import 'package:bookly/Features/home/domain/entities/book_entity.dart';
+
 import 'access_info.dart';
 import 'sale_info.dart';
 import 'search_info.dart';
 import 'volume_info.dart';
 
-class BookModel {
+class BookModel extends BookEntity {
   final String? kind;
   final String? id;
   final String? etag;
@@ -22,7 +24,30 @@ class BookModel {
     this.saleInfo,
     this.accessInfo,
     this.searchInfo,
-  });
+  }) : super(
+          bookId: id!,
+          // image: volumeInfo.imageLinks?.thumbnail ?? 'assets/images/Logo.png',
+          image : (volumeInfo.imageLinks?.thumbnail != null &&
+              volumeInfo.imageLinks!.thumbnail.isNotEmpty)
+              ? volumeInfo.imageLinks!.thumbnail
+              : 'https://m.media-amazon.com/images/I/61ZgavAVhlL._AC_UF1000,1000_QL80_.jpg',
+          // authorName: volumeInfo.authors?.first ?? 'No Name',
+          authorName: (volumeInfo.authors != null && volumeInfo.authors!.isNotEmpty)
+              ? volumeInfo.authors!.first
+              : 'No Name',
+          // title, pageCount and rating..
+          title: volumeInfo.title!,
+          pageCount: volumeInfo.pageCount ?? 0,
+          rating: 5,
+          // categories: volumeInfo.categories![0],
+          categories: (volumeInfo.categories != null && volumeInfo.categories!.isNotEmpty)
+              ? volumeInfo.categories![0]
+              : 'No Category',
+
+          previewLink: (volumeInfo.previewLink != null && volumeInfo.previewLink!.isNotEmpty)
+              ? volumeInfo.previewLink!
+              : 'No previewLink',
+        );
 
   factory BookModel.fromJson(Map<String, dynamic> json) => BookModel(
         kind: json['kind'] as String?,
@@ -67,4 +92,3 @@ class BookModel {
     ];
   }
 }
-
