@@ -7,8 +7,8 @@ import 'package:bookly/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class BookListViewItem extends StatelessWidget {
-  const BookListViewItem({super.key, required this.bookModel});
+class NewestListViewItem extends StatelessWidget {
+  const NewestListViewItem({super.key, required this.bookModel});
 
   final BookModel bookModel;
 
