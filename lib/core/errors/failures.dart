@@ -40,6 +40,11 @@ class ServerFailure extends Failure {
       return ServerFailure('Your request not found, please try again');
     } else if (statusCode == 500) {
       return ServerFailure('Internet server error, please try later!');
+    } else if (statusCode == 429) {
+      return ServerFailure(
+        'the API sleeps from 3 A.M to 9 A.M daily,'
+        'please try again in the available time for the API..',
+      );
     } else {
       return ServerFailure('Oops, there was an error, please try again');
     }
