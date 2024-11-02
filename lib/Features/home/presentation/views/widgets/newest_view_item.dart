@@ -1,4 +1,4 @@
-import 'package:bookly/Features/home/data/models/book_model/book_model.dart';
+import 'package:bookly/Features/home/domain/entities/book_entity.dart';
 import 'package:bookly/Features/home/presentation/views/widgets/book_rating.dart';
 import 'package:bookly/Features/home/presentation/views/widgets/custom_book_item.dart';
 import 'package:bookly/constants.dart';
@@ -8,21 +8,21 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class NewestListViewItem extends StatelessWidget {
-  const NewestListViewItem({super.key, required this.bookModel});
+  const NewestListViewItem({super.key, required this.bookEntity});
 
-  final BookModel bookModel;
+  final BookEntity bookEntity;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        GoRouter.of(context).push(AppRouter.kBookDetailsView, extra: bookModel);
+        GoRouter.of(context).push(AppRouter.kBookDetailsView, extra: bookEntity);
       },
       child: SizedBox(
         height: 125,
         child: Row(
           children: [
-            CustomBookImage(imageUrl: bookModel.volumeInfo.imageLinks?.thumbnail ?? ''),
+            CustomBookImage(imageUrl: bookEntity.image ?? ''),
             const SizedBox(width: 30),
             Expanded(
               child: Column(
@@ -31,7 +31,7 @@ class NewestListViewItem extends StatelessWidget {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.5,
                     child: Text(
-                      bookModel.volumeInfo.title!,
+                      bookEntity.title,
                       style:
                           Styles.textStyle20.copyWith(fontFamily: kGtSectraFine),
                       maxLines: 2,
@@ -40,7 +40,7 @@ class NewestListViewItem extends StatelessWidget {
                   ),
                   const SizedBox(height: 3),
                   Text(
-                    bookModel.volumeInfo.authors![0],
+                    bookEntity.authorName![0],
                     style: Styles.textStyle14,
                   ),
                   const SizedBox(height: 3),
@@ -52,7 +52,7 @@ class NewestListViewItem extends StatelessWidget {
                             .copyWith(fontWeight: FontWeight.bold),
                       ),
                       const Spacer(),
-                      BookRating(count: bookModel.volumeInfo.pageCount ?? 0, rating: 5,),
+                      BookRating(count: bookEntity.pageCount ?? 0, rating: 5,),
                     ],
                   ),
                 ],
