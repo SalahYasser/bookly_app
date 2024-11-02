@@ -1,19 +1,24 @@
 import 'package:bookly/Features/home/data/repos/home_repo_impl.dart';
 import 'package:bookly/Features/home/domain/entities/book_entity.dart';
+import 'package:bookly/Features/home/domain/use_cases/fetch_featured_books_ues_case.dart';
+import 'package:bookly/Features/home/domain/use_cases/fetch_newest_books_ues_case.dart';
 import 'package:bookly/Features/home/presentation/manger/featured_books_cubit/featured_books_cubit.dart';
 import 'package:bookly/Features/home/presentation/manger/newest_books_cubit/newest_books_cubit.dart';
 import 'package:bookly/constants.dart';
 import 'package:bookly/core/utils/app_router.dart';
 import 'package:bookly/core/utils/helper_functions/setup_service_locator.dart';
+import 'package:bookly/core/utils/simple_bloc_observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-void main() async{
+void main() async {
   setupServiceLocator();
 
   await Hive.initFlutter();
+
+  Bloc.observer = SimpleBlocObserver();
 
   Hive.registerAdapter(BookEntityAdapter());
   
@@ -35,12 +40,16 @@ class BooklyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => FeaturedBooksCubit(
-            getIt.get<HomeRepoImpl>(),
+            FetchFeaturedBooksUesCase(
+              getIt.get<HomeRepoImpl>(),
+            ),
           )..fetchFeaturedBooks(),
         ),
         BlocProvider(
           create: (context) => NewestBooksCubit(
-            getIt.get<HomeRepoImpl>(),
+            FetchNewestBooksUesCase(
+              getIt.get<HomeRepoImpl>(),
+            ),
           )..fetchNewestBooks(),
         ),
       ],
@@ -49,8 +58,9 @@ class BooklyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData.dark().copyWith(
           scaffoldBackgroundColor: kPrimaryColor,
-          textTheme:
-              GoogleFonts.montserratTextTheme(ThemeData.dark().textTheme),
+          textTheme: GoogleFonts.montserratTextTheme(
+            ThemeData.dark().textTheme,
+          ),
         ),
       ),
     );
