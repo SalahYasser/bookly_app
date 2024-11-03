@@ -1,6 +1,6 @@
 import 'package:bookly/Features/home/domain/entities/book_entity.dart';
 import 'package:bookly/Features/home/presentation/manger/newest_books_cubit/newest_books_cubit.dart';
-import 'package:bookly/Features/home/presentation/views/widgets/newest_view_item.dart';
+import 'package:bookly/Features/home/presentation/views/widgets/newest_book_view_item.dart';
 import 'package:bookly/core/utils/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -65,7 +65,7 @@ class _FeaturedBooksListViewState extends State<NewestBooksListView> {
                   extra: widget.books[index],
                 );
               },
-              child: NewestListViewItem(bookEntity: widget.books[index])
+              child: NewestBookViewItem(bookEntity: widget.books[index])
             ),
           );
         },
