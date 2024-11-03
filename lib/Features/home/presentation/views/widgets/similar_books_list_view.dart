@@ -25,8 +25,6 @@ class SimilarBooksListView extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 5),
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.pop(context);
-
                       GoRouter.of(context).push(
                         AppRouter.kBookDetailsView,
                         extra: state.books[index],
