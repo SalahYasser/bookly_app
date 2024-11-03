@@ -29,6 +29,8 @@ class BookDetailsSection extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
           textAlign: TextAlign.center,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
         ),
         const SizedBox(height: 6),
         Opacity(
@@ -39,6 +41,9 @@ class BookDetailsSection extends StatelessWidget {
               fontStyle: FontStyle.italic,
               fontWeight: FontWeight.w500,
             ),
+            textAlign: TextAlign.center,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
         ),
         const SizedBox(height: 18),

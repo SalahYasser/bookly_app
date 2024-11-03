@@ -16,7 +16,8 @@ class NewestListViewItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        GoRouter.of(context).push(AppRouter.kBookDetailsView, extra: bookEntity);
+        GoRouter.of(context)
+            .push(AppRouter.kBookDetailsView, extra: bookEntity);
       },
       child: SizedBox(
         height: 125,
@@ -32,8 +33,8 @@ class NewestListViewItem extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.5,
                     child: Text(
                       bookEntity.title,
-                      style:
-                          Styles.textStyle20.copyWith(fontFamily: kGtSectraFine),
+                      style: Styles.textStyle20
+                          .copyWith(fontFamily: kGtSectraFine),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -42,6 +43,8 @@ class NewestListViewItem extends StatelessWidget {
                   Text(
                     bookEntity.authorName!,
                     style: Styles.textStyle14,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 3),
                   Row(
@@ -52,7 +55,10 @@ class NewestListViewItem extends StatelessWidget {
                             .copyWith(fontWeight: FontWeight.bold),
                       ),
                       const Spacer(),
-                      BookRating(count: bookEntity.pageCount ?? 0, rating: 5,),
+                      BookRating(
+                        count: bookEntity.pageCount ?? 0,
+                        rating: 5,
+                      ),
                     ],
                   ),
                 ],
@@ -64,5 +70,3 @@ class NewestListViewItem extends StatelessWidget {
     );
   }
 }
-
-

@@ -49,7 +49,7 @@ class _FeaturedBooksListViewState extends State<NewestBooksListView> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * .3,
+      height: MediaQuery.of(context).size.height * 0.3,
       child: ListView.builder(
         physics: const NeverScrollableScrollPhysics(),
         padding: EdgeInsets.zero,
