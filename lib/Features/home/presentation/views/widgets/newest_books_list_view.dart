@@ -52,6 +52,7 @@ class _FeaturedBooksListViewState extends State<NewestBooksListView> {
       height: MediaQuery.of(context).size.height * .3,
       child: ListView.builder(
         physics: const NeverScrollableScrollPhysics(),
+        padding: EdgeInsets.zero,
         controller: _scrollController,
         itemCount: widget.books.length,
         itemBuilder: (context, index) {

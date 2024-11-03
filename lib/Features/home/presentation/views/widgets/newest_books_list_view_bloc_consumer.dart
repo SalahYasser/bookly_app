@@ -31,6 +31,7 @@ class _FeaturedBooksListViewBlocConsumerState
         }
       },
       builder: (context, state) {
+
         if (state is NewestBooksSuccess ||
             state is NewestBooksPaginationLoading ||
             state is NewestBooksPaginationFailure) {
