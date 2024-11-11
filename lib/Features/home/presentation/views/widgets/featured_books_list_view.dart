@@ -49,7 +49,7 @@ class _FeaturedBooksListViewState extends State<FeaturedBooksListView> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * .3,
+      height: MediaQuery.of(context).size.height * 0.3,
       child: ListView.builder(
         controller: _scrollController,
         itemCount: widget.books.length,
