@@ -37,6 +37,7 @@ class _FeaturedBooksListViewBlocConsumerState
             state is NewestBooksPaginationFailure) {
           return NewestBooksListView(
             books: books,
+            scrollController: BlocProvider.of<NewestBooksCubit>(context).scrollController,
           );
         } else if (state is NewestBooksFailure) {
           return CustomErrorWidget(errMessage: state.errMessage);
