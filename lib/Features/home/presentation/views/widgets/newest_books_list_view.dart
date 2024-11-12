@@ -7,29 +7,31 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class NewestBooksListView extends StatefulWidget {
-  const NewestBooksListView({super.key, required this.books});
+  const NewestBooksListView(
+      {super.key, required this.books, required this.scrollController});
 
   final List<BookEntity> books;
+  final ScrollController scrollController;
 
   @override
   State<NewestBooksListView> createState() => _FeaturedBooksListViewState();
 }
 
 class _FeaturedBooksListViewState extends State<NewestBooksListView> {
-  late final ScrollController _scrollController;
   var nextPage = 1;
   var isLoading = false;
 
   @override
   void initState() {
     super.initState();
-    _scrollController = ScrollController();
-    _scrollController.addListener(_scrollListen);
+    // widget.scrollController = ScrollController();
+    widget.scrollController.addListener(_scrollListen);
   }
 
   void _scrollListen() async {
-    var currentPositions = _scrollController.position.pixels;
-    var maxScrollLength = _scrollController.position.maxScrollExtent;
+    var currentPositions = widget.scrollController.position.pixels;
+    var maxScrollLength = widget.scrollController.position.maxScrollExtent;
+
     if (currentPositions >= 0.7 * maxScrollLength) {
       if (!isLoading) {
         isLoading = true;
@@ -42,33 +44,29 @@ class _FeaturedBooksListViewState extends State<NewestBooksListView> {
 
   @override
   void dispose() {
-    _scrollController.dispose();
+    widget.scrollController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.3,
-      child: ListView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        padding: EdgeInsets.zero,
-        controller: _scrollController,
-        itemCount: widget.books.length,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: GestureDetector(
-              onTap: () {
-                GoRouter.of(context).push(
-                  AppRouter.kBookDetailsView,
-                  extra: widget.books[index],
-                );
-              },
-              child: NewestBookViewItem(bookEntity: widget.books[index])
+    return Wrap(
+      children: List.generate(
+        widget.books.length,
+        (index) => Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: GestureDetector(
+            onTap: () {
+              GoRouter.of(context).push(
+                AppRouter.kBookDetailsView,
+                extra: widget.books[index],
+              );
+            },
+            child: NewestBookViewItem(
+              bookEntity: widget.books[index],
             ),
-          );
-        },
+          ),
+        ),
       ),
     );
   }
